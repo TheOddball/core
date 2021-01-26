@@ -4,6 +4,7 @@ name: Stale
 on:
   schedule:
     - cron: "0 * * * *"
+  workflow_dispatch:
 
 jobs:
   stale:
@@ -12,12 +13,12 @@ jobs:
       # The 90 day stale policy
       # Used for: Everything (unless 30 day policy below beats it)
       - name: 90 days stale policy
-        uses: actions/stale@v3.0.14
+        uses: actions/stale@v3.0.15
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           days-before-stale: 90
           days-before-close: 7
-          operations-per-run: 25
+          operations-per-run: 250
           remove-stale-when-updated: true
           stale-issue-label: "stale"
           exempt-issue-labels: "no-stale,Help%20wanted,help-wanted"
@@ -48,14 +49,14 @@ jobs:
       # - Issues that are pending more information (incomplete issues)
       # - PRs that are not marked as new-integration
       - name: 30 days stale policy
-        uses: actions/stale@v3.0.14
+        uses: actions/stale@v3.0.15
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           # PRs have a CLA signed label, we can misuse it to apply this policy
           only-labels: "cla-signed,needs-more-information"
           days-before-stale: 30
           days-before-close: 7
-          operations-per-run: 5
+          operations-per-run: 250
           remove-stale-when-updated: true
           stale-issue-label: "stale"
           exempt-issue-labels: "no-stale,Help%20wanted,help-wanted"
